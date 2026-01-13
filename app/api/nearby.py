@@ -3,6 +3,7 @@ from app.repository.news import fetch_articles
 from app.schemas import NewsResponse
 from app.formatter import format_article
 from app.validation import validate_lat_lon, ensure_results
+from app.llm import summarize
 
 router = APIRouter()
 
@@ -13,5 +14,10 @@ def nearby(lat: float, lon: float):
     rows = fetch_articles(lat=lat, lon=lon, mode="nearby")
 
     ensure_results(rows)
+    
+    articles = []
+    for r in rows:
+        summary = summarize(r[0], r[1])
+        articles.append(format_article(r, summary))
 
-    return {"articles": [format_article(r) for r in rows]}
+    return {"articles": articles}

@@ -6,30 +6,30 @@ It simulates how modern news platforms (Google News, Bloomberg, Perplexity) comb
 
 ------------------------------------------------------
 
-FEATURES
+# FEATURES
 
-• Five retrieval modes
+## Five retrieval modes
   - Search
   - Source
   - Category
   - Relevance score
   - Nearby (geo-based)
 
-• LLM-powered query understanding  
+## LLM-powered query understanding  
   The system uses an LLM to extract intent, entities, and constraints from user queries.
 
-• Hybrid ranking  
+## Hybrid ranking  
   Combines editorial relevance_score with full-text search ranking.
 
-• Geospatial search  
+## Geospatial search  
   Uses PostGIS to rank articles by physical distance.
 
-• LLM summaries  
+## LLM summaries  
   Each article is enriched with an LLM-generated summary.
 
 ------------------------------------------------------
 
-ARCHITECTURE
+# ARCHITECTURE
 
 User Query  
     ↓  
@@ -45,15 +45,15 @@ JSON API Response
 
 ------------------------------------------------------
 
-DATA FLOW
+# DATA FLOW
 
 JSON files → PostgreSQL → Indexed Search & Geo → FastAPI → LLM-enriched responses
 
 ------------------------------------------------------
 
-API ENDPOINTS
+# API ENDPOINTS
 
-Data APIs:
+## Data APIs:
 
 /api/v1/news/search?q=  
 /api/v1/news/source?source=  
@@ -61,15 +61,16 @@ Data APIs:
 /api/v1/news/score?min_score=  
 /api/v1/news/nearby?lat=&lon=
 
-Intelligent API:
+## Intelligent API:
 
 /api/v1/query?q=...&lat=...&lon=...
+
 
 The LLM automatically selects the best retrieval strategy.
 
 ------------------------------------------------------
 
-RANKING RULES
+# RANKING RULES
 
 search   → relevance_score + text match  
 source   → most recent  
@@ -79,12 +80,13 @@ nearby   → closest distance
 
 ------------------------------------------------------
 
-SETUP
+# SETUP
 
-1. Install dependencies  
+## Install dependencies  
+
 pip install -r requirements.txt
 
-2. Create .env file  
+## Create .env file  
 
 DB_HOST=localhost  
 DB_NAME=inshorts  
@@ -92,12 +94,12 @@ DB_USER=postgres
 DB_PASSWORD=postgres  
 OPENROUTER_API_KEY=your_key  
 
-3. Initialize database  
+## Initialize database  
 
 python3 scripts/reset_db.py  
 python3 scripts/load_data.py  
 
-4. Run server  
+## Run server  
 
 uvicorn app.main:app --reload  
 
