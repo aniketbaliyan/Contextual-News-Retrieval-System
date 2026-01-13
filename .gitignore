@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+.env
+.venv/
+venv/
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Local database or temp files
+*.sqlite
+*.db
+
+# Docker volumes (if any)
+pgdata/
+
+# Data files (raw input)
+data/raw/*.json
+
+# Build artifacts
+dist/
+build/
